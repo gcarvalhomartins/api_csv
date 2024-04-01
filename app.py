@@ -1,5 +1,5 @@
 from flask import Flask,jsonify,request
-from construct_csv import tratando_Csv, create_body_csv
+from construct_csv import create_body_csv
 
 APP = Flask(__name__)
 
