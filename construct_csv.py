@@ -1,5 +1,6 @@
 import csv
 import json
+import io
 
 teste_json = {
     "cabecalho" : ["Mago1","Mago2","Mago3"],
@@ -21,14 +22,19 @@ def create_body_csv(recebendo_json):
     heade_csf = tratando_Header_Csv(recebendo_json)
     body_csv = rows_csv(recebendo_json)
 
-    with open('testando.csv', mode='w', newline = '') as csv_file:
-        cabecalho = heade_csf
+    buffer = io.StringIO()
 
-        writer = csv.DictWriter(csv_file,fieldnames=cabecalho)
-        writer.writeheader()
-        writer.writerow(body_csv)
-    recebendo_json = csv_file
+    # with open(buffer, mode='w', newline = '') as csv_file:
+    #      cabecalho = heade_csf
 
+    writer = csv.DictWriter(buffer,fieldnames=heade_csf)
+    writer.writeheader()
+    writer.writerow(body_csv)
+    
+    # with open(buffer,mode='r') as csv_file:
+    #     buffer.write(csv_file.read())
+
+    recebendo_json = buffer.getvalue()
     return recebendo_json
 
 
